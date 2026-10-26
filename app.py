@@ -246,7 +246,7 @@ progress = min(total_stamps / 200.0, 1.0)
 st.progress(progress)
 st.caption(f"🎯 目標進度：目前已完成 **{total_stamps} / {next_target}** 點（邁向 {target_name}）")
 
-# ----------------- 集點印章卡（一行 5 個，共 4 行） -----------------
+# ----------------- 集點印章卡（手機/電腦皆強制一行 5 個） -----------------
 sheet_capacity = 20
 current_sheet = (total_stamps // sheet_capacity) + 1
 stamps_in_cur_sheet = total_stamps % sheet_capacity
@@ -255,41 +255,39 @@ if total_stamps > 0 and stamps_in_cur_sheet == 0:
     stamps_in_cur_sheet = sheet_capacity
     current_sheet -= 1
 
-with st.container(border=True):
-    col_t_left, col_t_right = st.columns([1, 1])
-    with col_t_left:
-        st.markdown(f"**🔖 集點卡第 {current_sheet} 張**")
-    with col_t_right:
-        st.markdown(f"<div style='text-align: right; color: #8D6E63; font-size: 14px;'>這張卡片已蓋 {stamps_in_cur_sheet} / {sheet_capacity} 個章</div>", unsafe_allow_html=True)
-    
-    st.write("")  # 垂直留白
+start_num = (current_sheet - 1) * sheet_capacity + 1
 
-    start_num = (current_sheet - 1) * sheet_capacity + 1
+# 生成 20 個印章 HTML
+stamps_markup = []
+for i in range(sheet_capacity):
+    num = start_num + i
+    if num <= total_stamps:
+        stamps_markup.append(f'''
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:48px; height:48px; background:#FFF3E0; border:2px solid #FFB74D; border-radius:50%; box-shadow:0 2px 5px rgba(255,183,77,0.3); transform:rotate(-3deg); margin:auto;">
+            <span style="font-size:16px; line-height:1;">🦁</span>
+            <span style="font-size:10px; color:#E65100; font-weight:bold; line-height:1; margin-top:2px;">#{num}</span>
+        </div>
+        ''')
+    else:
+        stamps_markup.append(f'''
+        <div style="display:flex; align-items:center; justify-content:center; width:48px; height:48px; border:2px dashed #CFD8DC; border-radius:50%; color:#B0BEC5; font-size:12px; font-weight:500; background:#FAFAFA; margin:auto;">
+            {num}
+        </div>
+        ''')
 
-    # 4 行，每行 5 個欄位
-    for row in range(4):
-        cols = st.columns(5)
-        for col_idx in range(5):
-            idx = row * 5 + col_idx
-            num = start_num + idx
-            with cols[col_idx]:
-                if num <= total_stamps:
-                    st.markdown(f"""
-                    <div style="display:flex; justify-content:center; align-items:center; margin-bottom:12px;">
-                        <div class="stamp-item-active">
-                            <span>🦁</span>
-                            <span class="label">#{num}</span>
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                else:
-                    st.markdown(f"""
-                    <div style="display:flex; justify-content:center; align-items:center; margin-bottom:12px;">
-                        <div class="stamp-item-empty">
-                            <span>{num}</span>
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
+card_html = f'''
+<div style="background:#FFFFFF; border:1.5px dashed #D7CCC8; border-radius:18px; padding:16px 12px; margin:15px 0; box-shadow:0 3px 10px rgba(0,0,0,0.03);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding:0 4px;">
+        <span style="font-weight:bold; color:#5D4037; font-size:15px;">🔖 集點卡第 {current_sheet} 張</span>
+        <span style="font-size:13px; color:#8D6E63;">這張卡片已蓋 {stamps_in_cur_sheet} / {sheet_capacity} 個章</span>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(5, 1fr); row-gap:14px; column-gap:6px; justify-items:center; align-items:center;">
+        {"".join(stamps_markup)}
+    </div>
+</div>
+'''
+
+components.html(card_html, height=315)
 
 # ----------------- 歷史紀錄與管理 -----------------
 with st.expander("📖 查看運動流水帳 / 刪除手誤紀錄"):
