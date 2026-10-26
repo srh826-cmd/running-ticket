@@ -7,7 +7,7 @@ import random
 
 # ----------------- 頁面基礎設定 -----------------
 st.set_page_config(
-    page_title="小獅子的機票集點卡",
+    page_title="小獅子的跑步集點卡",
     page_icon="🦁",
     layout="centered"
 )
@@ -177,7 +177,7 @@ svg_html = """
 """
 components.html(svg_html, height=155)
 
-st.markdown("<h2 class='hero-title'>小獅子的機票集點卡</h2>", unsafe_allow_html=True)
+st.markdown("<h2 class='hero-title'>小獅子的跑步集點卡</h2>", unsafe_allow_html=True)
 
 # ----------------- 讀取資料與點數計算 -----------------
 runs_df = get_runs()
