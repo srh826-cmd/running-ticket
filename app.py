@@ -7,7 +7,7 @@ import random
 
 # ----------------- 頁面基礎設定 -----------------
 st.set_page_config(
-    page_title="小獅子的跑步集點卡",
+    page_title="小獅子的集點卡",
     page_icon="🦁",
     layout="centered"
 )
