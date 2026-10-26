@@ -276,18 +276,18 @@ for i in range(sheet_capacity):
         ''')
 
 card_html = f'''
-<div style="background:#FFFFFF; border:1.5px dashed #D7CCC8; border-radius:18px; padding:16px 12px; margin:15px 0; box-shadow:0 3px 10px rgba(0,0,0,0.03);">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding:0 4px;">
+<div style="background:#FFFFFF; border:1.5px dashed #D7CCC8; border-radius:18px; padding:18px 12px 20px 12px; margin:5px 0 10px 0; box-shadow:0 3px 10px rgba(0,0,0,0.03); box-sizing:border-box;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding:0 6px;">
         <span style="font-weight:bold; color:#5D4037; font-size:15px;">🔖 集點卡第 {current_sheet} 張</span>
         <span style="font-size:13px; color:#8D6E63;">這張卡片已蓋 {stamps_in_cur_sheet} / {sheet_capacity} 個章</span>
     </div>
-    <div style="display:grid; grid-template-columns: repeat(5, 1fr); row-gap:14px; column-gap:6px; justify-items:center; align-items:center;">
+    <div style="display:grid; grid-template-columns: repeat(5, 1fr); row-gap:16px; column-gap:6px; justify-items:center; align-items:center;">
         {"".join(stamps_markup)}
     </div>
 </div>
 '''
 
-components.html(card_html, height=315)
+components.html(card_html, height=355)
 
 # ----------------- 歷史紀錄與管理 -----------------
 with st.expander("📖 查看運動流水帳 / 刪除手誤紀錄"):
