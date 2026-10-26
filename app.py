@@ -89,7 +89,7 @@ st.markdown("""
     }
     .stamp-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+        grid-template-columns: repeat(5, 1fr);
         gap: 12px;
         justify-items: center;
         align-items: center;
@@ -156,7 +156,6 @@ svg_html = """
     
     <!-- 窗戶 1: 波浪鬃毛小獅子 🦁 -->
     <g transform="translate(165, 80)">
-        <!-- 8瓣波浪花邊鬃毛 -->
         <circle cx="0" cy="-9.5" r="4.2" fill="#FFA726"/>
         <circle cx="6.7" cy="-6.7" r="4.2" fill="#FFA726"/>
         <circle cx="9.5" cy="0" r="4.2" fill="#FFA726"/>
@@ -167,14 +166,11 @@ svg_html = """
         <circle cx="-6.7" cy="-6.7" r="4.2" fill="#FFA726"/>
         <circle cx="0" cy="0" r="9.5" fill="#FFA726"/>
         
-        <!-- 小獅子圓圓耳朵 -->
         <circle cx="-5" cy="-6.5" r="2.2" fill="#FB8C00"/>
         <circle cx="5" cy="-6.5" r="2.2" fill="#FB8C00"/>
         
-        <!-- 小獅子臉蛋 -->
         <circle cx="0" cy="0.5" r="7.2" fill="#FFE082"/>
         
-        <!-- 眼睛與鼻子笑臉 -->
         <circle cx="-2.3" cy="0" r="0.85" fill="#4E342E"/>
         <circle cx="2.3" cy="0" r="0.85" fill="#4E342E"/>
         <ellipse cx="0" cy="2" rx="1.3" ry="0.9" fill="#E65100"/>
@@ -202,10 +198,7 @@ st.markdown("<h2 class='hero-title'>小獅子的機票集點本</h2>", unsafe_al
 # ----------------- 讀取資料與點數計算 -----------------
 runs_df = get_runs()
 
-# 先前已累積的基準點數
 BASE_STAMPS = 55
-
-# 總印章數 = 基準點數 + 本程式打卡筆數
 total_stamps = BASE_STAMPS + len(runs_df)
 total_dist = float(runs_df['distance'].sum()) if not runs_df.empty else 0.0
 total_time = int(runs_df['duration_mins'].sum()) if not runs_df.empty else 0
@@ -269,7 +262,7 @@ progress = min(total_stamps / 200.0, 1.0)
 st.progress(progress)
 st.caption(f"🎯 目標進度：目前已完成 **{total_stamps} / {next_target}** 點（邁向 {target_name}）")
 
-# ----------------- 集點印章卡（Stamp Card Dashboard） -----------------
+# ----------------- 集點印章卡（一行 5 個，共 4 行） -----------------
 sheet_capacity = 20
 current_sheet = (total_stamps // sheet_capacity) + 1
 stamps_in_cur_sheet = total_stamps % sheet_capacity
@@ -277,15 +270,6 @@ stamps_in_cur_sheet = total_stamps % sheet_capacity
 if total_stamps > 0 and stamps_in_cur_sheet == 0:
     stamps_in_cur_sheet = sheet_capacity
     current_sheet -= 1
-
-st.markdown(f"""
-<div class="stamp-board">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <span style="font-weight: bold; color: #5D4037; font-size: 16px;">🔖 集點卡第 {current_sheet} 張</span>
-        <span style="font-size: 13px; color: #8D6E63;">這張卡片已蓋 {stamps_in_cur_sheet} / {sheet_capacity} 個章</span>
-    </div>
-    <div class="stamp-grid">
-""", unsafe_allow_html=True)
 
 stamp_htmls = []
 start_num = (current_sheet - 1) * sheet_capacity + 1
@@ -306,7 +290,18 @@ for i in range(sheet_capacity):
         </div>
         """)
 
-st.markdown("".join(stamp_htmls) + "</div></div>", unsafe_allow_html=True)
+full_card_html = f"""
+<div class="stamp-board">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <span style="font-weight: bold; color: #5D4037; font-size: 16px;">🔖 集點卡第 {current_sheet} 張</span>
+        <span style="font-size: 13px; color: #8D6E63;">這張卡片已蓋 {stamps_in_cur_sheet} / {sheet_capacity} 個章</span>
+    </div>
+    <div class="stamp-grid">
+        {"".join(stamp_htmls)}
+    </div>
+</div>
+"""
+st.markdown(full_card_html, unsafe_allow_html=True)
 
 # ----------------- 歷史紀錄與管理 -----------------
 with st.expander("📖 查看運動流水帳 / 刪除手誤紀錄"):
