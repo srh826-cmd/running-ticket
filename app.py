@@ -196,7 +196,7 @@ with st.container():
         with col_d:
             in_date = st.date_input("運動日期", value=date.today())
         with col_km:
-            in_dist = st.number_input("跑了幾公里 (km)", min_value=0.1, max_value=100.0, value=5.0, step=0.5)
+            in_dist = st.number_input("跑了幾公里 (km)", min_value=0.1, max_value=100.0, value=3.0, step=0.5)
         with col_t:
             in_time = st.number_input("跑了多久 (分鐘)", min_value=1, max_value=600, value=30, step=1)
             
