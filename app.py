@@ -61,7 +61,8 @@ PRAISES = [
     "✈️ 今天的流汗超值得！集點印章成功蓋下，機票又更近一步！",
     "💖 意志力滿分！給認真跑步的你一個大大的擁抱！",
     "☁️ 咕嚕咕嚕～飛機加滿能量，今天也是超棒的一天！",
-    "🎉 太讚了！今天的堅持，都是未來一起看世界的浪漫回憶！"
+    "🐨 太棒了！無尾熊給你一個大抱抱！"
+    "🦁 你好棒！成為更強壯的小獅子了！"
 ]
 
 # ----------------- 柔和可愛插畫 CSS -----------------
@@ -77,23 +78,6 @@ st.markdown("""
         margin-top: -15px;
         margin-bottom: 25px;
         font-weight: 800;
-    }
-    .stamp-board {
-        background: #FFFFFF;
-        border: 2px dashed #D7CCC8;
-        border-radius: 20px;
-        padding: 20px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    .stamp-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 12px;
-        justify-items: center;
-        align-items: center;
-        padding: 10px 0;
     }
     .stamp-item-active {
         width: 52px;
@@ -271,37 +255,41 @@ if total_stamps > 0 and stamps_in_cur_sheet == 0:
     stamps_in_cur_sheet = sheet_capacity
     current_sheet -= 1
 
-stamp_htmls = []
-start_num = (current_sheet - 1) * sheet_capacity + 1
+with st.container(border=True):
+    col_t_left, col_t_right = st.columns([1, 1])
+    with col_t_left:
+        st.markdown(f"**🔖 集點卡第 {current_sheet} 張**")
+    with col_t_right:
+        st.markdown(f"<div style='text-align: right; color: #8D6E63; font-size: 14px;'>這張卡片已蓋 {stamps_in_cur_sheet} / {sheet_capacity} 個章</div>", unsafe_allow_html=True)
+    
+    st.write("")  # 垂直留白
 
-for i in range(sheet_capacity):
-    num = start_num + i
-    if num <= total_stamps:
-        stamp_htmls.append(f"""
-        <div class="stamp-item-active">
-            <span>🦁</span>
-            <span class="label">#{num}</span>
-        </div>
-        """)
-    else:
-        stamp_htmls.append(f"""
-        <div class="stamp-item-empty">
-            <span>{num}</span>
-        </div>
-        """)
+    start_num = (current_sheet - 1) * sheet_capacity + 1
 
-full_card_html = f"""
-<div class="stamp-board">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <span style="font-weight: bold; color: #5D4037; font-size: 16px;">🔖 集點卡第 {current_sheet} 張</span>
-        <span style="font-size: 13px; color: #8D6E63;">這張卡片已蓋 {stamps_in_cur_sheet} / {sheet_capacity} 個章</span>
-    </div>
-    <div class="stamp-grid">
-        {"".join(stamp_htmls)}
-    </div>
-</div>
-"""
-st.markdown(full_card_html, unsafe_allow_html=True)
+    # 4 行，每行 5 個欄位
+    for row in range(4):
+        cols = st.columns(5)
+        for col_idx in range(5):
+            idx = row * 5 + col_idx
+            num = start_num + idx
+            with cols[col_idx]:
+                if num <= total_stamps:
+                    st.markdown(f"""
+                    <div style="display:flex; justify-content:center; align-items:center; margin-bottom:12px;">
+                        <div class="stamp-item-active">
+                            <span>🦁</span>
+                            <span class="label">#{num}</span>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.markdown(f"""
+                    <div style="display:flex; justify-content:center; align-items:center; margin-bottom:12px;">
+                        <div class="stamp-item-empty">
+                            <span>{num}</span>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
 
 # ----------------- 歷史紀錄與管理 -----------------
 with st.expander("📖 查看運動流水帳 / 刪除手誤紀錄"):
