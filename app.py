@@ -121,25 +121,44 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ----------------- 頂部小獅子與無尾熊搭飛機插畫 -----------------
+# ----------------- 升級版：可愛流線客機 + 小獅子與無尾熊 -----------------
 svg_html = """
 <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-<svg width="340" height="150" viewBox="0 0 340 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- 雲朵 -->
-    <path d="M40 110 A15 15 0 0 1 65 95 A25 25 0 0 1 105 100 A15 15 0 0 1 125 110 Z" fill="#E1F5FE" opacity="0.8"/>
-    <path d="M220 50 A18 18 0 0 1 250 35 A28 28 0 0 1 295 40 A18 18 0 0 1 315 50 Z" fill="#E1F5FE" opacity="0.7"/>
-    
-    <!-- 飛機本體 -->
-    <path d="M80 85 C80 60 210 60 250 78 C270 87 270 95 250 100 C200 110 80 105 80 85 Z" fill="#FFE082"/>
-    <path d="M110 55 L135 78 L95 78 Z" fill="#FFB74D"/>
-    <path d="M160 88 L190 120 L215 120 L195 88 Z" fill="#FFA726"/>
-    
-    <!-- 機窗 -->
-    <circle cx="165" cy="80" r="14" fill="#81D4FA" stroke="#FFF" stroke-width="2"/>
-    <circle cx="205" cy="80" r="14" fill="#81D4FA" stroke="#FFF" stroke-width="2"/>
-    
-    <!-- 窗戶 1: 波浪鬃毛小獅子 🦁 -->
-    <g transform="translate(165, 80)">
+<svg width="360" height="160" viewBox="0 0 360 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 漂浮雲朵 -->
+    <path d="M30 115 A14 14 0 0 1 52 102 A22 22 0 0 1 88 106 A14 14 0 0 1 105 115 Z" fill="#E1F5FE" opacity="0.8"/>
+    <path d="M260 45 A16 16 0 0 1 285 32 A25 25 0 0 1 325 36 A16 16 0 0 1 345 45 Z" fill="#E1F5FE" opacity="0.7"/>
+
+    <!-- 後方水平尾翼 -->
+    <path d="M70 75 L45 68 L48 76 Z" fill="#FFA726"/>
+
+    <!-- 上方垂直尾翼（經典客機大尾翼） -->
+    <path d="M65 80 L78 40 C80 37 84 37 87 40 L105 80 Z" fill="#FFB74D"/>
+    <!-- 尾翼上的小愛心標誌 -->
+    <path d="M85 55 C85 52 88 50 90 52 C92 50 95 52 95 55 C95 58 90 62 90 62 C90 62 85 58 85 55 Z" fill="#FF7043"/>
+
+    <!-- 機身主體（前圓後尖的流線客機） -->
+    <path d="M70 82 C90 70 240 70 275 80 C290 85 292 95 278 100 C240 108 90 105 70 92 Z" fill="#FFF9C4" stroke="#FFE082" stroke-width="2"/>
+
+    <!-- 駕駛艙擋風玻璃 -->
+    <path d="M265 82 C272 85 274 88 270 91 C264 91 260 88 261 83 Z" fill="#90CAF9"/>
+
+    <!-- 下方主機翼（帶前掠角） -->
+    <path d="M165 92 L145 130 C143 133 147 135 152 134 L195 95 Z" fill="#FFA726"/>
+    <!-- 翼尖紅色航行警示燈 -->
+    <circle cx="146" cy="132" r="2.5" fill="#EF5350"/>
+
+    <!-- 機翼下的噴射引擎 -->
+    <rect x="175" y="105" width="28" height="14" rx="7" fill="#FFCC80" stroke="#FFA726" stroke-width="1.5"/>
+    <ellipse cx="203" cy="112" rx="3" ry="7" fill="#FB8C00"/>
+
+    <!-- 圓形客艙舷窗 -->
+    <circle cx="180" cy="86" r="14" fill="#81D4FA" stroke="#FFFFFF" stroke-width="2.5"/>
+    <circle cx="225" cy="86" r="14" fill="#81D4FA" stroke="#FFFFFF" stroke-width="2.5"/>
+
+    <!-- 窗戶 1: 小獅子 🦁 -->
+    <g transform="translate(180, 86)">
+        <!-- 8瓣波浪花邊鬃毛 -->
         <circle cx="0" cy="-9.5" r="4.2" fill="#FFA726"/>
         <circle cx="6.7" cy="-6.7" r="4.2" fill="#FFA726"/>
         <circle cx="9.5" cy="0" r="4.2" fill="#FFA726"/>
@@ -149,35 +168,32 @@ svg_html = """
         <circle cx="-9.5" cy="0" r="4.2" fill="#FFA726"/>
         <circle cx="-6.7" cy="-6.7" r="4.2" fill="#FFA726"/>
         <circle cx="0" cy="0" r="9.5" fill="#FFA726"/>
-        
         <circle cx="-5" cy="-6.5" r="2.2" fill="#FB8C00"/>
         <circle cx="5" cy="-6.5" r="2.2" fill="#FB8C00"/>
-        
         <circle cx="0" cy="0.5" r="7.2" fill="#FFE082"/>
-        
         <circle cx="-2.3" cy="0" r="0.85" fill="#4E342E"/>
         <circle cx="2.3" cy="0" r="0.85" fill="#4E342E"/>
         <ellipse cx="0" cy="2" rx="1.3" ry="0.9" fill="#E65100"/>
     </g>
-    
+
     <!-- 窗戶 2: 無尾熊 🐨 -->
-    <circle cx="198" cy="74" r="5" fill="#B0BEC5"/>
-    <circle cx="212" cy="74" r="5" fill="#B0BEC5"/>
-    <circle cx="205" cy="80" r="9" fill="#CFD8DC"/>
-    <circle cx="202" cy="78" r="1" fill="#37474F"/>
-    <circle cx="208" cy="78" r="1" fill="#37474F"/>
-    <ellipse cx="205" cy="82" rx="2.5" ry="3.5" fill="#455A64"/>
-    
-    <!-- 愛心氣流 -->
-    <g transform="translate(45, 75) scale(0.7)">
+    <g transform="translate(225, 86)">
+        <circle cx="-7" cy="-6" r="5" fill="#B0BEC5"/>
+        <circle cx="7" cy="-6" r="5" fill="#B0BEC5"/>
+        <circle cx="0" cy="0" r="9" fill="#CFD8DC"/>
+        <circle cx="-3" cy="-2" r="1" fill="#37474F"/>
+        <circle cx="3" cy="-2" r="1" fill="#37474F"/>
+        <ellipse cx="0" cy="2" rx="2.5" ry="3.5" fill="#455A64"/>
+    </g>
+
+    <!-- 機尾噴出的愛心動力氣流 -->
+    <g transform="translate(40, 80) scale(0.75)">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF8A80"/>
     </g>
 </svg>
 </div>
 """
-components.html(svg_html, height=155)
-
-st.markdown("<h2 class='hero-title'>小獅子的機票集點本</h2>", unsafe_allow_html=True)
+components.html(svg_html, height=165)
 
 # ----------------- 讀取資料與點數計算 -----------------
 runs_df = get_runs()
