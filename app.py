@@ -66,21 +66,23 @@ PRAISES = [
 ]
 
 # ----------------- 柔和可愛插畫 CSS -----------------
-.stApp {
+# ----------------- 柔和可愛插畫 CSS -----------------
+st.markdown("""
+<style>
+    .stApp {
         background-color: #FDFBF7;
         color: #5D4037;
     }
 
-    /* 強制標題與輸入框文字在深色模式下維持深棕色 */
+    /* 強制文字與標籤在深色模式下維持深棕色 */
     h1, h2, h3, h4, p, span, label {
         color: #5D4037 !important;
     }
 
     .hero-title {
-    .hero-title {
         text-align: center;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        color: #5D4037;
+        color: #5D4037 !important;
         margin-top: -15px;
         margin-bottom: 25px;
         font-weight: 800;
